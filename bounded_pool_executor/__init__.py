@@ -2,6 +2,8 @@ import multiprocessing
 import concurrent.futures
 import threading
 
+name = 'bounded_pool_executor'
+
 
 class _BoundedPoolExecutor:
 
