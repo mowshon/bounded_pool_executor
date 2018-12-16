@@ -23,7 +23,7 @@ def do_job(num):
     print('value: %d, sleep: %d sec.' % (num, sleep_sec))
     sleep(sleep_sec)
 
-with BoundedProcessPoolExecutor(5) as worker:
+with BoundedProcessPoolExecutor(max_workers=5) as worker:
     for num in range(10000):
         print('#%d Worker initialization' % num)
         worker.submit(do_job, num)
@@ -45,7 +45,7 @@ def do_job(num):
     print('value: %d, sleep: %d sec.' % (num, sleep_sec))
     sleep(sleep_sec)
 
-with concurrent.futures.ProcessPoolExecutor(5) as worker:
+with concurrent.futures.ProcessPoolExecutor(max_workers=5) as worker:
     for num in range(100000):
         print('#%d Worker initialization' % num)
         worker.submit(do_job, num)
