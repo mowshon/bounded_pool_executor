@@ -1,5 +1,5 @@
 import multiprocessing
-from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
+import concurrent.futures
 import threading
 
 
@@ -21,15 +21,16 @@ class _BoundedPoolExecutor:
         return future
 
 
-class BoundedProcessPoolExecutor(_BoundedPoolExecutor, ProcessPoolExecutor):
+class BoundedProcessPoolExecutor(_BoundedPoolExecutor, concurrent.futures.ProcessPoolExecutor):
 
     def __init__(self, max_workers=None):
         super().__init__(max_workers)
         self.semaphore = multiprocessing.BoundedSemaphore(max_workers)
 
 
-class BoundedThreadPoolExecutor(_BoundedPoolExecutor, ThreadPoolExecutor):
+class BoundedThreadPoolExecutor(_BoundedPoolExecutor, concurrent.futures.ThreadPoolExecutor):
 
     def __init__(self, max_workers=None):
         super().__init__(max_workers)
         self.semaphore = threading.BoundedSemaphore(max_workers)
+
