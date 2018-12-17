@@ -1,6 +1,11 @@
 # Bounded Process&Thread Pool Executor
 BoundedSemaphore for [ProcessPoolExecutor](https://docs.python.org/3/library/concurrent.futures.html#processpoolexecutor) & [ThreadPoolExecutor](https://docs.python.org/3/library/concurrent.futures.html#threadpoolexecutor) from [concurrent.futures](https://docs.python.org/3/library/concurrent.futures.html)
 
+## Installation
+```bash
+pip install bounded-pool-executor
+```
+
 # What is the main problem?
 If you use the standard module “**concurrent.futures**” and want to simultaneously process several million data, then a queue of workers will take up all the free memory.
 
