@@ -7,7 +7,7 @@ pip install bounded-pool-executor
 ```
 
 # What is the main problem?
-If you use the standard module “**concurrent.futures**” and want to simultaneously process several million data, then a queue of workers will take up all the free memory.
+If you use the standard module "**concurrent.futures**" and want to simultaneously process several million data, then a queue of workers will take up all the free memory.
 
 If the script is run on a weak VPS, this will lead to a **memory leak**.
 
