@@ -18,6 +18,7 @@ If the script is run on a weak VPS, this will lead to a **memory leak**.
 # BoundedProcessPoolExecutor
 **BoundedProcessPoolExecutor** will put a new worker in queue only when another worker has finished his work.
 
+Linux:
 ```python
 from bounded_pool_executor import BoundedProcessPoolExecutor
 from time import sleep
@@ -34,12 +35,32 @@ with BoundedProcessPoolExecutor(max_workers=5) as worker:
         worker.submit(do_job, num)
 
 ```
+
+Windows:
+```python
+from bounded_pool_executor import BoundedProcessPoolExecutor
+from time import sleep
+from random import randint
+
+def do_job(num):
+    sleep_sec = randint(1, 10)
+    print('value: %d, sleep: %d sec.' % (num, sleep_sec))
+    sleep(sleep_sec)
+
+if __name__ == '__main__':
+    with BoundedProcessPoolExecutor(max_workers=5) as worker:
+        for num in range(10000):
+            print('#%d Worker initialization' % num)
+            worker.submit(do_job, num)
+
+```
 ### Result:
 ![BoundedProcessPoolExecutor](https://python-scripts.com/wp-content/uploads/2018/12/bounded.gif)
 
 # Classic concurrent.futures.ProcessPoolExecutor
 **ProcessPoolExecutor** inserts all workers into the queue and expects tasks to be performed as the new worker is released, depending on the value of `max_workers`.
 
+Linux:
 ```python
 import concurrent.futures
 from time import sleep
@@ -54,6 +75,24 @@ with concurrent.futures.ProcessPoolExecutor(max_workers=5) as worker:
     for num in range(100000):
         print('#%d Worker initialization' % num)
         worker.submit(do_job, num)
+```
+
+Windows:
+```python
+import concurrent.futures
+from time import sleep
+from random import randint
+
+def do_job(num):
+    sleep_sec = randint(1, 3)
+    print('value: %d, sleep: %d sec.' % (num, sleep_sec))
+    sleep(sleep_sec)
+
+if __name__ == '__main__':
+    with concurrent.futures.ProcessPoolExecutor(max_workers=5) as worker:
+        for num in range(100000):
+            print('#%d Worker initialization' % num)
+            worker.submit(do_job, num)
 ```
 
 ### Result:
