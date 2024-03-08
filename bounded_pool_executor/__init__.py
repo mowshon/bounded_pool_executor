@@ -25,14 +25,14 @@ class _BoundedPoolExecutor:
 
 class BoundedProcessPoolExecutor(_BoundedPoolExecutor, concurrent.futures.ProcessPoolExecutor):
 
-    def __init__(self, max_workers=None, cache_size=0):
-        super().__init__(max_workers)
+    def __init__(self, max_workers=None, cache_size=0, **kwargs):
+        super().__init__(max_workers, **kwargs)
         self.semaphore = multiprocessing.BoundedSemaphore(self._max_workers + cache_size)
 
 
 class BoundedThreadPoolExecutor(_BoundedPoolExecutor, concurrent.futures.ThreadPoolExecutor):
 
-    def __init__(self, max_workers=None, cache_size=0):
-        super().__init__(max_workers)
+    def __init__(self, max_workers=None, cache_size=0, **kwargs):
+        super().__init__(max_workers, **kwargs)
         self.semaphore = threading.BoundedSemaphore(self._max_workers + cache_size)
 
